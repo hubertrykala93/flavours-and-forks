@@ -1,0 +1,91 @@
+<div class="flex items-center">
+  <div class="flex flex-1 h-1/4 w-auto">
+    <img src="assets/images/register/pexels-cottonbro-4253312.jpg">
+  </div>
+
+  <form class="flex flex-1 p-12 flex-col" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="text-text-color font-semibold mb-2 text-2xl">
+      <h2>Register</h2>
+    </div>
+
+    <div class="text-text-color font-light text-sm mb-10">
+      <span>Create your account, it's free and only take a minute.</span>
+    </div>
+
+    <div class="flex flex-col mb-6 gap-1 rounded-3xl text-sm">
+      <label for="username">Username *</label>
+      <input formControlName="username" class="w-full bg-gray-100 px-4 py-2 outline-none mb-2 text-placeholder-text-color" type="text" placeholder="Username">
+
+      <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
+        <ng-container *ngIf="registerForm.get('username')?.errors as usernameErrors">
+          <span class="font-normal text-xs text-red-600" *ngIf="usernameErrors['required']">Username is required.</span>
+          <span class="font-normal text-xs text-red-600" *ngIf="usernameErrors['minlength']">Username must be at least 3 characters long.</span>
+          <span class="font-normal text-xs text-red-600" *ngIf="usernameErrors['maxlength']">Username cannot exceed 20 characters long</span>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="flex flex-col mb-6 gap-1 rounded-3xl text-sm">
+      <label for="email">Email *</label>
+      <input formControlName="email" class="w-full bg-gray-100 px-4 py-2 outline-none mb-2 text-placeholder-text-color" type="text" name="email" placeholder="Email">
+
+      <div class="flex flex-col gap-1.5" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+        <ng-container *ngIf="registerForm.get('email')?.errors as emailErrors">
+          <span class="font-normal text-xs text-red-600" *ngIf="emailErrors['required']">Email is required.</span>
+          <span class="font-normal text-xs text-red-600" *ngIf="emailErrors['minlength']">Email must be at least 5 characters long.</span>
+          <span class="font-normal text-xs text-red-600" *ngIf="emailErrors['maxlength']">Email cannot exceed 255 characters long.</span>
+          <span class="font-normal text-xs text-red-600" *ngIf="registerForm.get('email')?.hasError('pattern')">Invalid e-mail address format.</span>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="flex flex-col mb-6 gap-1 rounded-3xl text-sm">
+      <label for="username">Password *</label>
+      <input formControlName="password" class="w-full bg-gray-100 px-4 py-2 outline-none mb-2 text-placeholder-text-color" type="text" placeholder="Password">
+
+      <div class="flex flex-col gap-1.5" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        <ng-container *ngIf="registerForm.get('password')?.errors as passwordErrors">
+          <span class="font-normal text-xs text-red-600" *ngIf="passwordErrors['required']">Password is required.</span>
+          <span class="font-normal text-xs text-red-600" *ngIf="passwordErrors['minlength']">Password must be at least 5 characters long.</span>
+          <span class="font-normal text-xs text-red-600" *ngIf="passwordErrors['maxlength']">Password cannot exceed 255 characters long.</span>
+          <span class="font-normal text-xs text-red-600" *ngIf="registerForm.get('password')?.hasError('pattern')">Password must have at least one uppercase letter, one lowercase letter, a number, and a special character (@, $, !, %, ?, &).</span>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="flex flex-col mb-2 gap-1 rounded-3xl text-sm">
+      <label for="username">Confirm Password *</label>
+      <input formControlName="repassword" class="w-full bg-gray-100 px-4 py-2 outline-none mb-2 text-placeholder-text-color" type="text" placeholder="Confirm Password">
+
+      <div class="flex flex-col gap-1.5" *ngIf="registerForm.get('repassword')?.invalid && registerForm.get('repassword')?.touched">
+        <ng-container *ngIf="registerForm.get('repassword')?.errors as repasswordErrors">
+          <span class="font-normal text-xs text-red-600" *ngIf="repasswordErrors['required']">Confirm Password is required.</span>
+          <span class="font-normal text-xs text-red-600" *ngIf="repasswordErrors['passwordMismatch']">The passwords do not match. Please ensure both fields are identical.</span>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="block mb-6">
+      <div class="flex items-center gap-1.5 text-[0.8125rem]">
+        <input formControlName="privacyPolicy" type="checkbox">
+        <label class="mb-0/2" for="privacyPolicy">I have read and understood the privacy policy. *</label>
+      </div>
+
+      <ng-container class="flex flex-col gap-1.5" *ngIf="registerForm.get('privacyPolicy')?.invalid && registerForm.get('privacyPolicy')?.touched">
+        <ng-container *ngIf="registerForm.get('privacyPolicy')?.errors as privacyPolicyErrors">
+          <span class="font-normal text-xs text-red-600" *ngIf="privacyPolicyErrors['required']">You must accept the privacy policy.</span>
+        </ng-container>
+      </ng-container>
+    </div>
+
+    <div>
+      <ng-container *ngIf="registerForm.valid; then formValid; else formInvalid"></ng-container>
+      <ng-template #formValid>
+        <button class="text-white hover:bg-button-hover duration-300 bg-primary-red rounded-lg px-4 py-3" type="submit">Sign Up</button>
+      </ng-template>
+      <ng-template #formInvalid>
+        <button class="text-white bg-primary-red rounded-lg px-4 py-3" type="submit" [disabled]="!registerForm.valid">Sign Up</button>
+      </ng-template>
+    </div>
+  </form>
+</div>

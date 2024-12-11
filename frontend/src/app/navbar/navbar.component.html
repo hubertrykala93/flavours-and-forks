@@ -1,0 +1,40 @@
+<!-- Navbar -->
+<nav class="relative mx-auto px-[60px] py-6 bg-slate-50">
+  <!-- Flex Container -->
+  <div class="flex items-center justify-between text-text-color">
+    <!-- Logo -->
+    <div class="pt-2">
+      <img class="h-auto w-[120px]" src="assets/images/logo/logo.png" alt="logo">
+    </div>
+
+    <div>
+      <ul class="flex space-x-6 items-center justify-between font-normal">
+        <li>
+          <a class="hover:text-primary-red duration-200" routerLink="/">Home</a>
+        </li>
+        <li>
+          <a class="hover:text-primary-red duration-200" href="#">About</a>
+        </li>
+        <li>
+          <a class="hover:text-primary-red duration-200" href="#">Recipes</a>
+        </li>
+        <li>
+          <a class="hover:text-primary-red duration-200" href="#">Meal Planner</a>
+        </li>
+        <li>
+          <a class="hover:text-primary-red duration-200" href="#">Contact Us</a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <div class="flex justify-between items-center gap-5">
+        <button type="submit">
+          <a href="#" class="hover:text-primary-red duration-200 px-4">Login</a>
+        </button>
+        <button type="submit">
+          <a routerLink="/register" class="text-white hover:bg-button-hover duration-300 bg-primary-red rounded-lg px-4 py-3">Register</a>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
