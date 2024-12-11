@@ -1,4 +1,3 @@
-import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
@@ -6,9 +5,6 @@ export function confirmPasswordValidator(passwordField: string): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const password = control.parent?.get(passwordField)?.value;
     const confirmPassword = control.value;
-
-    console.log(`Password -> ${password}`);
-    console.log(`Confirm Password -> ${confirmPassword}`);
 
     return password === confirmPassword || !confirmPassword
       ? null
@@ -25,7 +21,7 @@ export function confirmPasswordValidator(passwordField: string): ValidatorFn {
 export class RegisterComponent {
   registerForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) {
+  constructor(private formBuilder: FormBuilder) {
     this.registerForm = new FormGroup({
       username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
       email: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(255), Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')]),
@@ -36,12 +32,12 @@ export class RegisterComponent {
   }
 
   onSubmit(): void {
-    console.log(this.registerForm.get('repassword')?.errors)
-
     if (this.registerForm.valid) {
-      console.log('Form is Valid.')
-    } else {
-      console.log('Form is not Valid.')
+      const data = {
+        username: this.registerForm.get('username')?.value,
+        email: this.registerForm.get('email')?.value,
+        password: this.registerForm.get('password')?.value
+      }
     }
   }
 
