@@ -1,3 +1,7 @@
+<div class="font-lg text-sm text-text-color bg-message-success bg-opacity-50 p-3 text-center" *ngIf="successMessage">
+  <p>{{ successMessage }}</p>
+</div>
+
 <div class="flex items-center">
   <div class="flex flex-1 h-1/4 w-auto">
     <img src="assets/images/register/pexels-cottonbro-4253312.jpg">
@@ -20,7 +24,8 @@
         <ng-container *ngIf="registerForm.get('username')?.errors as usernameErrors">
           <span class="font-normal text-xs text-red-600" *ngIf="usernameErrors['required']">Username is required.</span>
           <span class="font-normal text-xs text-red-600" *ngIf="usernameErrors['minlength']">Username must be at least 3 characters long.</span>
-          <span class="font-normal text-xs text-red-600" *ngIf="usernameErrors['maxlength']">Username cannot exceed 20 characters long</span>
+          <span class="font-normal text-xs text-red-600" *ngIf="usernameErrors['maxlength']">Username cannot exceed 20 characters long.</span>
+          <span class="font-normal text-xs text-red-600" *ngIf="registerForm.get('username')?.hasError('uniqueError')">{{ registerForm.get('username')?.getError('uniqueError') }}</span>
         </ng-container>
       </div>
     </div>
@@ -35,6 +40,7 @@
           <span class="font-normal text-xs text-red-600" *ngIf="emailErrors['minlength']">Email must be at least 5 characters long.</span>
           <span class="font-normal text-xs text-red-600" *ngIf="emailErrors['maxlength']">Email cannot exceed 255 characters long.</span>
           <span class="font-normal text-xs text-red-600" *ngIf="registerForm.get('email')?.hasError('pattern')">Email address format is invalid.</span>
+          <span class="font-normal text-xs text-red-600" *ngIf="registerForm.get('email')?.hasError('uniqueError')">A user with this email address already exists, please provide another one.</span>
         </ng-container>
       </div>
     </div>

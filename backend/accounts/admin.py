@@ -12,11 +12,13 @@ class AdminUser(admin.ModelAdmin):
         "formatted_date_joined",
         "username",
         "email",
+        "is_verified",
         "is_active",
         "is_staff",
         "is_superuser",
     ]
     list_editable = [
+        "is_verified",
         "is_active",
         "is_staff",
         "is_superuser",

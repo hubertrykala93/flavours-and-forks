@@ -21,6 +21,8 @@ export function confirmPasswordValidator(passwordField: string): ValidatorFn {
 })
 export class RegisterComponent {
   registerForm!: FormGroup;
+  errorMessages: any = {};
+  successMessage: string = '';
 
   constructor(private registerService: RegisterService) {
     this.registerForm = new FormGroup({
@@ -37,17 +39,37 @@ export class RegisterComponent {
       const data = {
         username: this.registerForm.get('username')?.value,
         email: this.registerForm.get('email')?.value,
-        password: this.registerForm.get('password')?.value
+        password: this.registerForm.get('password')?.value,
+        repassword: this.registerForm.get('repassword')?.value,
+        privacyPolicy: this.registerForm.get('privacyPolicy')?.value
       }
 
       this.registerService.registerUser(data).subscribe({
         next: (response) => {
-          console.log(`Registration Completed -> ${response.status}`);
+          this.successMessage = response.message;
+          window.scrollTo({
+            top: 100,
+            left: 100,
+            behavior: 'smooth'
+          })
         },
         error: (error) => {
-          console.log(`Error -> ${error.message, error.stack}`);
+          this.errorMessages = error.error.errors;
+          this.setFormErrors();
         }
       })
+    }
+  }
+
+  setFormErrors() {
+    for (const controlName in this.errorMessages) {
+      if (this.errorMessages.hasOwnProperty(controlName)) {
+        const control = this.registerForm.get(controlName);
+
+        if (control) {
+          control.setErrors({uniqueError: this.errorMessages[controlName]});
+        }
+      }
     }
   }
 

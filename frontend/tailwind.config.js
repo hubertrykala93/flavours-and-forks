@@ -10,7 +10,8 @@ module.exports = {
         'text-color': '#333333',
         'placeholder-text-color': '#464646',
         'button-hover': '#c91618',
-        'primary-red': '#ea2a2c'
+        'primary-red': '#ea2a2c',
+        'message-success': '#4ADE80'
       },
     },
   },

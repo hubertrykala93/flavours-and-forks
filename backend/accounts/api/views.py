@@ -6,13 +6,13 @@ from .serializers import RegisterSerializer
 
 class RegisterAPIView(APIView):
     def post(self, request, *args, **kwargs):
-        print(request.data)
-
         serializer = RegisterSerializer(data=request.data)
 
         if serializer.is_valid():
+            serializer.save()
+
             return Response(data={
-                "message": "The registration was completed successfully.",
+                "message": "Registration was successful, please check your inbox to verify your account.",
                 "success": True,
                 "data": serializer.data,
             }, status=status.HTTP_201_CREATED)
@@ -20,8 +20,8 @@ class RegisterAPIView(APIView):
         else:
             return Response(
                 data={
-                    "message": "",
-                    "success": false,
-                    "data": serializer.errors,
+                    "message": "There was an issue with the registration. Please check the provided data and try again.",
+                    "success": False,
+                    "errors": {key: error[0] for key, error in serializer.errors.items()},
                 }, status=status.HTTP_400_BAD_REQUEST,
             )
