@@ -1,0 +1,33 @@
+<div class="flex items-center">
+  <form class="flex flex-1 p-12 flex-col">
+    <div class="text-text-color font-semibold mb-2 text-2xl">
+      <h2>Login</h2>
+    </div>
+
+    <div class="flex flex-col text-text-color font-light text-sm mb-10">
+      <span class="mb-2">Do you already have an account? Log in.</span>
+      <span>If not, <a class="text-sm hover:text-primary-red duration-200" routerLink="/register"><strong>register here</strong></a>.</span>
+    </div>
+
+    <div class="flex flex-col mb-6 gap-1 rounded-3xl text-sm">
+      <label for="username">Username *</label>
+      <input formControlName="username" class="w-full bg-gray-100 px-4 py-2 outline-none mb-2 text-placeholder-text-color" type="text" placeholder="Username">
+    </div>
+
+    <div class="flex flex-col mb-6 gap-1 rounded-3xl text-sm">
+      <label for="username">Password *</label>
+      <input formControlName="password" class="w-full bg-gray-100 px-4 py-2 outline-none mb-2 text-placeholder-text-color" type="password" placeholder="Password">
+    </div>
+
+    <div class="block mb-6">
+      <div class="flex items-center gap-1.5 text-[0.8125rem]">
+        <input formControlName="remember-me" type="checkbox">
+        <label class="mb-0/2" for="remember">Remember Me</label>
+      </div>
+    </div>
+
+    <div>
+      <button class="text-white hover:bg-button-hover duration-300 bg-primary-red rounded-lg px-4 py-3" type="submit">Sign In</button>
+    </div>
+  </form>
+</div>
