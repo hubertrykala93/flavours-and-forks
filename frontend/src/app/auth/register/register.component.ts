@@ -1,6 +1,6 @@
 import { RegisterService } from './../services/register.service';
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 export function confirmPasswordValidator(passwordField: string): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -39,6 +39,15 @@ export class RegisterComponent {
         email: this.registerForm.get('email')?.value,
         password: this.registerForm.get('password')?.value
       }
+
+      this.registerService.registerUser(data).subscribe({
+        next: (response) => {
+          console.log(`Registration Completed -> ${response.status}`);
+        },
+        error: (error) => {
+          console.log(`Error -> ${error.message, error.stack}`);
+        }
+      })
     }
   }
 
