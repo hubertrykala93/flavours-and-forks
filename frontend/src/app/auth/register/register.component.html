@@ -16,7 +16,7 @@
       <label for="username">Username *</label>
       <input formControlName="username" class="w-full bg-gray-100 px-4 py-2 outline-none mb-2 text-placeholder-text-color" type="text" placeholder="Username">
 
-      <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
+      <div *ngIf="registerForm.get('username')?.invalid && (registerForm.get('username')?.touched || registerForm.get('username')?.dirty)">
         <ng-container *ngIf="registerForm.get('username')?.errors as usernameErrors">
           <span class="font-normal text-xs text-red-600" *ngIf="usernameErrors['required']">Username is required.</span>
           <span class="font-normal text-xs text-red-600" *ngIf="usernameErrors['minlength']">Username must be at least 3 characters long.</span>
@@ -29,12 +29,12 @@
       <label for="email">Email *</label>
       <input formControlName="email" class="w-full bg-gray-100 px-4 py-2 outline-none mb-2 text-placeholder-text-color" type="text" name="email" placeholder="Email">
 
-      <div class="flex flex-col gap-1.5" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+      <div class="flex flex-col gap-1.5" *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)">
         <ng-container *ngIf="registerForm.get('email')?.errors as emailErrors">
           <span class="font-normal text-xs text-red-600" *ngIf="emailErrors['required']">Email is required.</span>
           <span class="font-normal text-xs text-red-600" *ngIf="emailErrors['minlength']">Email must be at least 5 characters long.</span>
           <span class="font-normal text-xs text-red-600" *ngIf="emailErrors['maxlength']">Email cannot exceed 255 characters long.</span>
-          <span class="font-normal text-xs text-red-600" *ngIf="registerForm.get('email')?.hasError('pattern')">Invalid e-mail address format.</span>
+          <span class="font-normal text-xs text-red-600" *ngIf="registerForm.get('email')?.hasError('pattern')">Email address format is invalid.</span>
         </ng-container>
       </div>
     </div>
@@ -43,7 +43,7 @@
       <label for="username">Password *</label>
       <input formControlName="password" class="w-full bg-gray-100 px-4 py-2 outline-none mb-2 text-placeholder-text-color" type="password" placeholder="Password">
 
-      <div class="flex flex-col gap-1.5" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+      <div class="flex flex-col gap-1.5" *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty)">
         <ng-container *ngIf="registerForm.get('password')?.errors as passwordErrors">
           <span class="font-normal text-xs text-red-600" *ngIf="passwordErrors['required']">Password is required.</span>
           <span class="font-normal text-xs text-red-600" *ngIf="passwordErrors['minlength']">Password must be at least 5 characters long.</span>
@@ -57,7 +57,7 @@
       <label for="username">Confirm Password *</label>
       <input formControlName="repassword" class="w-full bg-gray-100 px-4 py-2 outline-none mb-2 text-placeholder-text-color" type="password" placeholder="Confirm Password">
 
-      <div class="flex flex-col gap-1.5" *ngIf="registerForm.get('repassword')?.invalid && registerForm.get('repassword')?.touched">
+      <div class="flex flex-col gap-1.5" *ngIf="registerForm.get('repassword')?.invalid && (registerForm.get('repassword')?.touched || registerForm.get('repassword')?.dirty)">
         <ng-container *ngIf="registerForm.get('repassword')?.errors as repasswordErrors">
           <span class="font-normal text-xs text-red-600" *ngIf="repasswordErrors['required']">Confirm Password is required.</span>
           <span class="font-normal text-xs text-red-600" *ngIf="repasswordErrors['passwordMismatch']">The passwords do not match. Please ensure both fields are identical.</span>
