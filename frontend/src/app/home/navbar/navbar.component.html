@@ -28,12 +28,23 @@
     </div>
     <div>
       <div class="flex justify-between items-center gap-5">
-        <button type="submit">
-          <a routerLink="login" class="hover:text-primary-red duration-200 px-4">Login</a>
-        </button>
-        <button type="submit">
-          <a routerLink="/register" class="text-white hover:bg-button-hover duration-300 bg-primary-red rounded-lg px-4 py-3">Register</a>
-        </button>
+        <ng-container *ngIf="!isLoggedIn()">
+          <button type="submit">
+            <a routerLink="login" class="hover:text-primary-red duration-200 px-4">Login</a>
+          </button>
+          <button type="submit">
+            <a routerLink="/register" class="text-white hover:bg-button-hover duration-300 bg-primary-red rounded-lg px-4 py-3">Register</a>
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="isLoggedIn()">
+          <button type="submit">
+            <a routerLink="" class="hover:text-primary-red duration-200 px-4">Profile</a>
+          </button>
+          <button type="submit">
+            <a (click)="logout()" class="text-white hover:bg-button-hover duration-300 bg-primary-red rounded-lg px-4 py-3">Logout</a>
+          </button>
+        </ng-container>
       </div>
     </div>
   </div>

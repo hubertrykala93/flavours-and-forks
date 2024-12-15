@@ -101,3 +101,51 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField(required=True)
+    password = serializers.CharField(
+        required=True,
+        write_only=True,
+    )
+    remember = serializers.BooleanField(default=False)
+
+    def validate_username(self, username):
+        try:
+            user = User.objects.get(username=username)
+
+        except User.DoesNotExist:
+            raise serializers.ValidationError(
+                detail="A user with the provided username does not exist.",
+            )
+
+        return username
+
+    def validate_password(self, password):
+        username = self.initial_data.get("username")
+
+        if User.objects.filter(username=username).exists():
+            user = User.objects.get(username=username)
+
+            if not user.check_password(raw_password=password):
+                raise serializers.ValidationError(
+                    detail="The provided password is incorrect.",
+                )
+
+        return password
+
+    def validate(self, data):
+        username = data.get("username")
+
+        if User.objects.filter(username=username).exists():
+            user = User.objects.get(username=username)
+
+            if not user.is_verified:
+                raise serializers.ValidationError(
+                    detail="Your account is not verified. To log in, you must verify it first.",
+                )
+
+        return data
+
+

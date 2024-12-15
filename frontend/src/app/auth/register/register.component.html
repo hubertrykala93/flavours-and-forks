@@ -4,7 +4,7 @@
 
 <div class="flex items-center">
   <div class="flex flex-1 h-1/4 w-auto">
-    <img src="assets/images/register/pexels-cottonbro-4253312.jpg">
+    <img src="assets/images/register/pexels-cottonbro-4253312.jpg" alt="Register picture">
   </div>
 
   <form class="flex flex-1 p-12 flex-col" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
@@ -13,12 +13,15 @@
     </div>
 
     <div class="text-text-color font-light text-sm mb-10">
+      <!--
       <span>Create your account, it's free and only take a minute.</span>
+      -->
+      <span>Already have an account? <a class="font-semibold hover:text-button-hover duration-200" routerLink="/login">Log in</a>.</span>
     </div>
 
     <div class="flex flex-col mb-6 gap-1 rounded-3xl text-sm">
       <label for="username">Username *</label>
-      <input formControlName="username" class="w-full bg-gray-100 px-4 py-2 outline-none mb-2 text-placeholder-text-color" type="text" placeholder="Username">
+      <input formControlName="username" class="w-full bg-gray-100 px-4 py-2 outline-none text-placeholder-text-color" type="text" placeholder="Username">
 
       <div *ngIf="registerForm.get('username')?.invalid && (registerForm.get('username')?.touched || registerForm.get('username')?.dirty)">
         <ng-container *ngIf="registerForm.get('username')?.errors as usernameErrors">
@@ -32,7 +35,7 @@
 
     <div class="flex flex-col mb-6 gap-1 rounded-3xl text-sm">
       <label for="email">Email *</label>
-      <input formControlName="email" class="w-full bg-gray-100 px-4 py-2 outline-none mb-2 text-placeholder-text-color" type="text" name="email" placeholder="Email">
+      <input formControlName="email" class="w-full bg-gray-100 px-4 py-2 outline-none text-placeholder-text-color" type="text" name="email" placeholder="Email">
 
       <div class="flex flex-col gap-1.5" *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)">
         <ng-container *ngIf="registerForm.get('email')?.errors as emailErrors">
@@ -46,8 +49,8 @@
     </div>
 
     <div class="flex flex-col mb-6 gap-1 rounded-3xl text-sm">
-      <label for="username">Password *</label>
-      <input formControlName="password" class="w-full bg-gray-100 px-4 py-2 outline-none mb-2 text-placeholder-text-color" type="password" placeholder="Password">
+      <label for="password">Password *</label>
+      <input formControlName="password" class="w-full bg-gray-100 px-4 py-2 outline-none text-placeholder-text-color" type="password" placeholder="Password">
 
       <div class="flex flex-col gap-1.5" *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty)">
         <ng-container *ngIf="registerForm.get('password')?.errors as passwordErrors">
@@ -60,8 +63,8 @@
     </div>
 
     <div class="flex flex-col mb-2 gap-1 rounded-3xl text-sm">
-      <label for="username">Confirm Password *</label>
-      <input formControlName="repassword" class="w-full bg-gray-100 px-4 py-2 outline-none mb-2 text-placeholder-text-color" type="password" placeholder="Confirm Password">
+      <label for="repassword">Confirm Password *</label>
+      <input formControlName="repassword" class="w-full bg-gray-100 px-4 py-2 outline-none text-placeholder-text-color" type="password" placeholder="Confirm Password">
 
       <div class="flex flex-col gap-1.5" *ngIf="registerForm.get('repassword')?.invalid && (registerForm.get('repassword')?.touched || registerForm.get('repassword')?.dirty)">
         <ng-container *ngIf="registerForm.get('repassword')?.errors as repasswordErrors">
@@ -71,7 +74,7 @@
       </div>
     </div>
 
-    <div class="block mb-6">
+    <div class="block mb-6 mt-3">
       <div class="flex items-center gap-1.5 text-[0.8125rem]">
         <input formControlName="privacyPolicy" type="checkbox">
         <label class="mb-0/2" for="privacyPolicy">I have read and understood the privacy policy. *</label>
@@ -85,13 +88,7 @@
     </div>
 
     <div>
-      <ng-container *ngIf="registerForm.valid; then formValid; else formInvalid"></ng-container>
-      <ng-template #formValid>
-        <button class="text-white hover:bg-button-hover duration-300 bg-primary-red rounded-lg px-4 py-3" type="submit">Sign Up</button>
-      </ng-template>
-      <ng-template #formInvalid>
-        <button class="text-white bg-primary-red rounded-lg px-4 py-3" type="submit" [disabled]="!registerForm.valid">Sign Up</button>
-      </ng-template>
+      <button class="text-white hover:bg-button-hover duration-300 bg-primary-red rounded-lg px-4 py-3" type="submit" [disabled]="!registerForm.valid">Sign Up</button>
     </div>
   </form>
 </div>

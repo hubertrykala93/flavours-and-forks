@@ -1,6 +1,7 @@
-import { RegisterService } from './../services/register.service';
+import { AuthService } from './../services/auth.service';
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 export function confirmPasswordValidator(passwordField: string): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -24,7 +25,7 @@ export class RegisterComponent {
   errorMessages: any = {};
   successMessage: string = '';
 
-  constructor(private registerService: RegisterService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.registerForm = new FormGroup({
       username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
       email: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(255), Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')]),
@@ -44,14 +45,15 @@ export class RegisterComponent {
         privacyPolicy: this.registerForm.get('privacyPolicy')?.value
       }
 
-      this.registerService.registerUser(data).subscribe({
+      this.authService.registerUser(data).subscribe({
         next: (response) => {
           this.successMessage = response.message;
-          window.scrollTo({
-            top: 100,
-            left: 100,
-            behavior: 'smooth'
-          })
+          this.router.navigate(['login'])
+          // window.scrollTo({
+          //   top: 100,
+          //   left: 100,
+          //   behavior: 'smooth'
+          // })
         },
         error: (error) => {
           this.errorMessages = error.error.errors;

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import UserManager, PermissionsMixin, AbstractBaseUser
 from django.utils.timezone import now
 from uuid import uuid4
+from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
 
 
 class CustomUserManager(UserManager):

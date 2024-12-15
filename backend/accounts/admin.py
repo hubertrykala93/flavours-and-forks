@@ -1,8 +1,29 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from .models import User
+from django.contrib.sessions.models import Session
+from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
 
 admin.site.unregister(Group)
+
+
+@admin.register(Session)
+class AdminSession(admin.ModelAdmin):
+    list_display = [
+        "session_key",
+        "_session_data",
+        "expire_date",
+    ]
+    list_filter = ["expire_date"]
+
+    def _session_data(self, obj):
+        if obj:
+            return obj.get_decoded()
+
+    def delete_model(self, request, obj):
+        token = OutstandingToken.objects.filter(user=obj).delete()
+
+        super(AdminSession, self).delete_model(request=request, obj=obj)
 
 
 @admin.register(User)
